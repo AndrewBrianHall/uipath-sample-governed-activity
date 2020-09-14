@@ -1,5 +1,4 @@
 ﻿using SampleGovernedActivities.Activities;
-using System.Activities;
 using System.Activities.Presentation.Metadata;
 using System.ComponentModel;
 

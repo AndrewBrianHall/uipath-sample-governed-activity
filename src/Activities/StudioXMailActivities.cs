@@ -2,15 +2,11 @@
 using SampleGovernedActivities.Helpers;
 using System;
 using System.Activities;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Net.Mail;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using UiPath.Mail.Activities.Business;
-using UiPath.Shared.Activities;
 
 namespace SampleGovernedActivities.Activities
 {
