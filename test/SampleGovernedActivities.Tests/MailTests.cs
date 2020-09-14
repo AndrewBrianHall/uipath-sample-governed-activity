@@ -17,7 +17,7 @@ namespace SampleGovernedActivities.Tests
         [InlineData("john.p.doe@mailinator.com", "mailinator.com")]
         public void FindSingleDomain(string email, string expected)
         {
-            var addressCollection = MailHelper.ParseEmailAddresses(email);
+            var addressCollection = MailHelper.CreateAddressCollection(email);
             var domain = addressCollection[0].Host;
             Assert.Equal(expected, domain);
         }
@@ -26,7 +26,7 @@ namespace SampleGovernedActivities.Tests
         [InlineData("person@mailinator.com;john.doe@uipath.com,jane.doe@mailinator.com", new string[] { "mailinator.com", "uipath.com", "mailinator.com" })]
         public void FindMultipleDomains(string emails, string[] expectedDomains)
         {
-            var emailCollection = MailHelper.ParseEmailAddresses(emails);
+            var emailCollection = MailHelper.CreateAddressCollection(emails);
 
             for (int i = 0; i < emailCollection.Count; i++)
             {
@@ -43,7 +43,7 @@ namespace SampleGovernedActivities.Tests
         public void PermittedDomainTargets(string target, string[] allowedDomains)
         {
             var mailHelper = new MailConstraints(allowedDomains);
-            var recipients = MailHelper.ParseEmailAddresses(target);
+            var recipients = MailHelper.CreateAddressCollection(target);
             mailHelper.ValidateEmailAddresses(recipients);
         }
 
@@ -53,7 +53,7 @@ namespace SampleGovernedActivities.Tests
         public void ProhobitedDomainTargets(string targets, string[] allowedDomains)
         {
             var mailHelper = new MailConstraints(allowedDomains);
-            var recipients = MailHelper.ParseEmailAddresses(targets);
+            var recipients = MailHelper.CreateAddressCollection(targets);
             Assert.Throws<ProhibitedEmailRecipientException>(() => { mailHelper.ValidateEmailAddresses(recipients); });
         }
         
@@ -65,7 +65,7 @@ namespace SampleGovernedActivities.Tests
             var mailHelper = new MailConstraints(allowedDomains);
             try
             {
-                var recipients = MailHelper.ParseEmailAddresses(targets);
+                var recipients = MailHelper.CreateAddressCollection(targets);
                 mailHelper.ValidateEmailAddresses(recipients);
             }
             catch(ProhibitedEmailRecipientException e)
@@ -84,7 +84,7 @@ namespace SampleGovernedActivities.Tests
             var mailHelper = new MailConstraints(allowedDomains);
             try
             {
-                var recipients = MailHelper.ParseEmailAddresses(targets);
+                var recipients = MailHelper.CreateAddressCollection(targets);
                 mailHelper.ValidateEmailAddresses(recipients);
             }
             catch(ProhibitedEmailRecipientException e)

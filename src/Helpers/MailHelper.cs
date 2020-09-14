@@ -3,13 +3,17 @@ using System.Net.Mail;
 
 namespace SampleGovernedActivities.Helpers
 {
+    // This class is simply a helper for managing the MailAddressCollection.
+    // Due to activity differences building a complete collection requires
+    // dealing with both AddressCollections and strings, and converting and 
+    // merging them to do the final validation check.
     internal class MailHelper
     {
         public MailAddressCollection Addresses { get; protected set; }
 
         public MailHelper()
         {
-            this.Addresses = new MailAddressCollection(); 
+            this.Addresses = new MailAddressCollection();
         }
 
         public MailHelper(MailAddressCollection mailAddresses)
@@ -17,55 +21,43 @@ namespace SampleGovernedActivities.Helpers
             this.Addresses = mailAddresses;
         }
 
+        // Merge an additional set of addresses
         public void AddAddresses(MailAddressCollection addresses)
         {
-            foreach(var address in addresses)
+            foreach (var address in addresses)
             {
                 this.Addresses.Add(address);
             }
         }
 
+        // Add addresses represented as a string to the collection
         public void AddAddresses(string addresses)
         {
-            var addressCollection = ParseEmailAddresses(addresses);
+            var addressCollection = CreateAddressCollection(addresses);
             this.AddAddresses(addressCollection);
         }
 
-
-        protected static MailAddressCollection MergeAddressCollections(MailAddressCollection collection1, MailAddressCollection collection2)
+        internal static MailAddressCollection CreateAddressCollection(string addressSet)
         {
-            MailAddressCollection merged = new MailAddressCollection();
-            foreach (var mailAddress in collection1)
-            {
-                merged.Add(mailAddress);
-            }
-            foreach (var mailAddress in collection2)
-            {
-                merged.Add(mailAddress);
-            }
+            addressSet = NormalizeAddresses(addressSet);
 
-            return merged;
+            //System.Net.MailAddressCollection will handle parsing addresses
+            MailAddressCollection collection = new MailAddressCollection();
+            collection.Add(addressSet);
+            return collection;
         }
 
+
+        // Substitute characters acccepted by most mail systems to alternatives
+        // supported by MailAddressCollection (e.g. addresses must be separated by , not ;)
         protected static string NormalizeAddresses(string addressSet)
         {
             if (!string.IsNullOrEmpty(addressSet))
             {
-                //MailMessage collection will only accept , separators so normalize any ;'s to ,
                 addressSet = addressSet.Replace(';', ',');
             }
 
             return addressSet;
-        }
-
-        internal static MailAddressCollection ParseEmailAddresses(string addressSet)
-        {
-            addressSet = NormalizeAddresses(addressSet);
-
-            //System.Net.MailAddressCollection will handle parsing addresses into individual mails
-            MailAddressCollection collection = new MailAddressCollection();
-            collection.Add(addressSet);
-            return collection;
         }
 
         public void ValidateAddresses(MailConstraints constraints)
