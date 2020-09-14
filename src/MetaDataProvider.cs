@@ -15,12 +15,12 @@ namespace SampleGovernedActivities
             // In StudioX, an activity's catgory must start with "Business.". 
             // In this case, we'll place the "Mail" activities into the "Mail" category since
             // we want users to use these instead of the included ones
-            var category = new CategoryAttribute("Business.Mail");
+            var studioXMailCategory = new CategoryAttribute("Business.Mail");
 
-            
-            builder.AddCustomAttributes(typeof(GovernedForwardMailX), category);
-            builder.AddCustomAttributes(typeof(GovernedReplyToMailX), category);
-            builder.AddCustomAttributes(typeof(GovernedSendMailX), category);
+            // Register the mail activities            
+            builder.AddCustomAttributes(typeof(GovernedForwardMailX), studioXMailCategory);
+            builder.AddCustomAttributes(typeof(GovernedReplyToMailX), studioXMailCategory);
+            builder.AddCustomAttributes(typeof(GovernedSendMailX), studioXMailCategory);
 
             MetadataStore.AddAttributeTable(builder.CreateTable());
         }

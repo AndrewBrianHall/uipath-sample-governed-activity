@@ -14,14 +14,16 @@ using UiPath.Shared.Activities;
 
 namespace SampleGovernedActivities.Activities
 {
-    //Creates a common set of constraints used in the three governed activities
+    //Creates a common set of constraints used in the all governed mail activities
     internal static class MailConstraintSettings
     {
+        //This list is the domains (@<domain>) that mails may be sent to. Can be one or more
         public static readonly string[] AllowedDomains = new string[] { "mailinator.com" };
         public static readonly MailConstraints MailHelper = new MailConstraints(AllowedDomains);
     }
 
     //Creates a governed "Forward Email" activity for use in StudioX
+    [DisplayName("Forward Mail - Required")]
     public class GovernedForwardMailX : ForwardMailX
     {
         protected override async Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
@@ -44,6 +46,7 @@ namespace SampleGovernedActivities.Activities
     }
 
     //Creates a governed "Reply to Email" activity for use in StudioX
+    [DisplayName("Reply to Mail - Required")]
     public class GovernedReplyToMailX : ReplyToMailX
     {
 
@@ -74,6 +77,7 @@ namespace SampleGovernedActivities.Activities
     }
 
     //Creates a governed "Send Email" activity for use in StudioX
+    [DisplayName("Send Mail - Required")]
     public class GovernedSendMailX : SendMailX
     {
 
