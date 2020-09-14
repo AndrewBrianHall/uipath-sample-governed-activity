@@ -1,0 +1,13 @@
+﻿<?xml version="1.0"?>
+<package >
+	<metadata>
+		<id>$id$</id>
+		<version>$version$</version>
+		<title>$title$</title>
+		<authors>Andrew Hall</authors>
+		<owners>$author$</owners>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>Governed activities that extend StudioX's built in activities</description>
+		<copyright>Copyright 2020</copyright>
+	</metadata>
+</package>
