@@ -22,7 +22,7 @@ namespace SampleGovernedActivities.Activities
     }
 
     //Creates a governed "Forward Email" activity for use in StudioX
-    public class GovernedForwardMail : ForwardMailX
+    public class GovernedForwardMailX : ForwardMailX
     {
         protected override async Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {
@@ -44,7 +44,7 @@ namespace SampleGovernedActivities.Activities
     }
 
     //Creates a governed "Reply to Email" activity for use in StudioX
-    public class GovernedReplyToMail : ReplyToMailX
+    public class GovernedReplyToMailX : ReplyToMailX
     {
 
         protected override async Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
@@ -74,7 +74,7 @@ namespace SampleGovernedActivities.Activities
     }
 
     //Creates a governed "Send Email" activity for use in StudioX
-    public class GovernedSendMail : SendMailX
+    public class GovernedSendMailX : SendMailX
     {
 
         protected override async Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
