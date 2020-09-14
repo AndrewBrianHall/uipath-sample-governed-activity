@@ -13,15 +13,12 @@ namespace SampleGovernedActivities.Activities
     //Creates a common set of constraints used in the all governed mail activities
     internal static class MailConstraintSettings
     {
-        public const string RequiredActivityIdentifier = " (Permitted)";
-
         //This list is the domains (@<domain>) that mails may be sent to. Can be one or more
         public static readonly string[] AllowedDomains = new string[] { "mailinator.com" };
         public static readonly MailConstraints MailHelper = new MailConstraints(AllowedDomains);
     }
 
     //Creates a governed "Forward Email" activity for use in StudioX
-    [DisplayName("Forward Mail" + MailConstraintSettings.RequiredActivityIdentifier)]
     public class GovernedForwardMailX : ForwardMailX
     {
         protected override async Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
@@ -33,10 +30,10 @@ namespace SampleGovernedActivities.Activities
             recipients.AddAddresses(base.Bcc.Get(context));
 
             //Validate will throw an exception if any recipient's domain is not in the permitted list
-            //If an exception is throw, the function will exit prior to sending in the next line
+            //If an exception is thrown, the function will exit prior to sending the mail (happens in the base.ExecuteAsync function)
             recipients.ValidateAddresses(MailConstraintSettings.MailHelper);
 
-            //If no exception is thrown by the validation check, call the base classes "ExecuteAsync"
+            //If no exception is thrown by the validation check, call the base class's "ExecuteAsync"
             //which will send the message per the settings
             await base.ExecuteAsync(context, cancellationToken);
             return _ => { };
@@ -44,7 +41,6 @@ namespace SampleGovernedActivities.Activities
     }
 
     //Creates a governed "Reply to Email" activity for use in StudioX
-    [DisplayName("Reply to Mail" + MailConstraintSettings.RequiredActivityIdentifier)]
     public class GovernedReplyToMailX : ReplyToMailX
     {
 
@@ -64,10 +60,10 @@ namespace SampleGovernedActivities.Activities
             recipients.AddAddresses(base.Bcc.Get(context));
 
             //Validate will throw an exception if any recipient's domain is not in the permitted list
-            //If an exception is throw, the function will exit prior to sending in the next line
+            //If an exception is thrown, the function will exit prior to sending the mail (happens in the base.ExecuteAsync function)
             recipients.ValidateAddresses(MailConstraintSettings.MailHelper);
 
-            //If no exception is thrown by the validation check, call the base classes "ExecuteAsync"
+            //If no exception is thrown by the validation check, call the base class's "ExecuteAsync"
             //which will send the message per the settings
             await base.ExecuteAsync(context, cancellationToken);
             return _ => { };
@@ -75,7 +71,6 @@ namespace SampleGovernedActivities.Activities
     }
 
     //Creates a governed "Send Email" activity for use in StudioX
-    [DisplayName("Send Mail" + MailConstraintSettings.RequiredActivityIdentifier)]
     public class GovernedSendMailX : SendMailX
     {
 
@@ -89,10 +84,10 @@ namespace SampleGovernedActivities.Activities
             recipients.AddAddresses(base.Bcc.Get(context));
 
             //Validate will throw an exception if any recipient's domain is not in the permitted list
-            //If an exception is throw, the function will exit prior to sending in the next line
+            //If an exception is thrown, the function will exit prior to sending the mail (happens in the base.ExecuteAsync function)
             recipients.ValidateAddresses(MailConstraintSettings.MailHelper);
 
-            //If no exception is thrown by the validation check, call the base classes "ExecuteAsync"
+            //If no exception is thrown by the validation check, call the base class's "ExecuteAsync"
             //which will send the message per the settings
             await base.ExecuteAsync(context, cancellationToken);
             return _ => { };

@@ -52,6 +52,7 @@
     <Compile Include="Activities\Constraints\MailConstraints.cs" />
     <Compile Include="MetaDataProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

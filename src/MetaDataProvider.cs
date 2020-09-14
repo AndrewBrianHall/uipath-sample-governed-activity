@@ -1,4 +1,5 @@
 ﻿using SampleGovernedActivities.Activities;
+using System.Activities;
 using System.Activities.Presentation.Metadata;
 using System.ComponentModel;
 
@@ -16,10 +17,15 @@ namespace SampleGovernedActivities
             // we want users to use these instead of the included ones
             var studioXMailCategory = new CategoryAttribute("Business.Mail");
 
-            // Register the mail activities            
+            // Register the activities's categories            
             builder.AddCustomAttributes(typeof(GovernedForwardMailX), studioXMailCategory);
             builder.AddCustomAttributes(typeof(GovernedReplyToMailX), studioXMailCategory);
             builder.AddCustomAttributes(typeof(GovernedSendMailX), studioXMailCategory);
+
+            //Set their display names
+            builder.AddCustomAttributes(typeof(GovernedForwardMailX), new DisplayNameAttribute(Resources.ForwardMailXDisplayName));
+            builder.AddCustomAttributes(typeof(GovernedReplyToMailX), new DisplayNameAttribute(Resources.ReplyToMailXDisplayName));
+            builder.AddCustomAttributes(typeof(GovernedSendMailX), new DisplayNameAttribute(Resources.SendMailXDisplayName));
 
             MetadataStore.AddAttributeTable(builder.CreateTable());
         }
