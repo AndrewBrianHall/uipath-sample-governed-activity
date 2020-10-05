@@ -43,7 +43,10 @@ namespace SampleGovernedActivities.Helpers
 
             //System.Net.MailAddressCollection will handle parsing addresses
             MailAddressCollection collection = new MailAddressCollection();
-            collection.Add(addressSet);
+            if (!string.IsNullOrEmpty(addressSet))
+            {
+                collection.Add(addressSet);
+            }
             return collection;
         }
 
