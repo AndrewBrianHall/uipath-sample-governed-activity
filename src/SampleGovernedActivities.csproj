@@ -50,7 +50,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DailyEmailHistory.cs" />
+    <Compile Include="Activities\Constraints\DailyEmailHistory.cs" />
     <Compile Include="Helpers\MailHelper.cs" />
     <Compile Include="Activities\StudioXMailActivities.cs" />
     <Compile Include="Activities\Constraints\MailConstraints.cs" />
