@@ -14,8 +14,8 @@ namespace SampleGovernedActivities.Activities
     internal static class MailConstraintSettings
     {
         //This list is the domains (@<domain>) that mails may be sent to. Can be one or more
-        public static readonly string[] AllowedDomains = new string[] { "mailinator.com" };
-        public static readonly MailConstraints MailHelper = new MailConstraints(AllowedDomains);
+        public static readonly string[] AllowedDomains = new string[] { "ey.com" };
+        public static readonly MailConstraints MailHelper = new MailConstraints(AllowedDomains, true, 1000, 10000, true);
     }
 
     //Creates a governed "Forward Email" activity for use in StudioX
@@ -31,7 +31,7 @@ namespace SampleGovernedActivities.Activities
 
             //Validate will throw an exception if any recipient's domain is not in the permitted list
             //If an exception is thrown, the function will exit prior to sending the mail (happens in the base.ExecuteAsync function)
-            recipients.ValidateAddresses(MailConstraintSettings.MailHelper);
+            recipients.ValidateAddresses(MailConstraintSettings.MailHelper, base.IsDraft);
 
             //If no exception is thrown by the validation check, call the base class's "ExecuteAsync"
             //which will send the message per the settings
@@ -61,7 +61,7 @@ namespace SampleGovernedActivities.Activities
 
             //Validate will throw an exception if any recipient's domain is not in the permitted list
             //If an exception is thrown, the function will exit prior to sending the mail (happens in the base.ExecuteAsync function)
-            recipients.ValidateAddresses(MailConstraintSettings.MailHelper);
+            recipients.ValidateAddresses(MailConstraintSettings.MailHelper, base.IsDraft);
 
             //If no exception is thrown by the validation check, call the base class's "ExecuteAsync"
             //which will send the message per the settings
@@ -85,7 +85,7 @@ namespace SampleGovernedActivities.Activities
 
             //Validate will throw an exception if any recipient's domain is not in the permitted list
             //If an exception is thrown, the function will exit prior to sending the mail (happens in the base.ExecuteAsync function)
-            recipients.ValidateAddresses(MailConstraintSettings.MailHelper);
+            recipients.ValidateAddresses(MailConstraintSettings.MailHelper, base.IsDraft);
 
             //If no exception is thrown by the validation check, call the base class's "ExecuteAsync"
             //which will send the message per the settings

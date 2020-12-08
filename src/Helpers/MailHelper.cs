@@ -63,9 +63,9 @@ namespace SampleGovernedActivities.Helpers
             return addressSet;
         }
 
-        public void ValidateAddresses(MailConstraints constraints)
+        public void ValidateAddresses(MailConstraints constraints, bool isDraft)
         {
-            constraints.ValidateEmailAddresses(this.Addresses);
+            constraints.ValidateEmailAddresses(this.Addresses, isDraft);
         }
     }
 }

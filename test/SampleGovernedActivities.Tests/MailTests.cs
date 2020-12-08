@@ -42,9 +42,9 @@ namespace SampleGovernedActivities.Tests
         [InlineData("Person <person@mailinator.com>, Jane H. Doe <jane.doe@mailinator.com>;bob@contoso.com", new string[] { "mailinator.com", "contoso.com" })]
         public void PermittedDomainTargets(string target, string[] allowedDomains)
         {
-            var mailHelper = new MailConstraints(allowedDomains);
+            var mailHelper = new MailConstraints(allowedDomains, false, 1000, 10000, false);
             var recipients = MailHelper.CreateAddressCollection(target);
-            mailHelper.ValidateEmailAddresses(recipients);
+            mailHelper.ValidateEmailAddresses(recipients, false);
         }
 
         [Theory]
@@ -52,9 +52,9 @@ namespace SampleGovernedActivities.Tests
         [InlineData("john.doe@uipath.com;bob@contoso.com", new string[] { "mailinator.com" })]
         public void ProhobitedDomainTargets(string targets, string[] allowedDomains)
         {
-            var mailHelper = new MailConstraints(allowedDomains);
+            var mailHelper = new MailConstraints(allowedDomains, false, 1000, 10000, false);
             var recipients = MailHelper.CreateAddressCollection(targets);
-            Assert.Throws<ProhibitedEmailRecipientException>(() => { mailHelper.ValidateEmailAddresses(recipients); });
+            Assert.Throws<ProhibitedEmailRecipientException>(() => { mailHelper.ValidateEmailAddresses(recipients, false); });
         }
         
         [Theory]
@@ -62,18 +62,18 @@ namespace SampleGovernedActivities.Tests
         public void SingleDomainErrorMessage(string targets, string[] allowedDomains)
         {
             string message = null;
-            var mailHelper = new MailConstraints(allowedDomains);
+            var mailHelper = new MailConstraints(allowedDomains, false, 1000, 10000, false);
             try
             {
                 var recipients = MailHelper.CreateAddressCollection(targets);
-                mailHelper.ValidateEmailAddresses(recipients);
+                mailHelper.ValidateEmailAddresses(recipients, false);
             }
             catch(ProhibitedEmailRecipientException e)
             {
                 message = e.Message;
             }
 
-            Assert.Equal("You may only send emails to email addresses addressed to users matching @mailinator.com", message);
+            Assert.Contains("You may only send emails to email addresses addressed to users matching @mailinator.com", message);
         }
         
         [Theory]
@@ -81,18 +81,18 @@ namespace SampleGovernedActivities.Tests
         public void MultipleDomainErrorMessage(string targets, string[] allowedDomains)
         {
             string message = null;
-            var mailHelper = new MailConstraints(allowedDomains);
+            var mailHelper = new MailConstraints(allowedDomains,false, 1000, 10000, false);
             try
             {
                 var recipients = MailHelper.CreateAddressCollection(targets);
-                mailHelper.ValidateEmailAddresses(recipients);
+                mailHelper.ValidateEmailAddresses(recipients, false);
             }
             catch(ProhibitedEmailRecipientException e)
             {
                 message = e.Message;
             }
 
-            Assert.Equal("You may only send emails to email addresses addressed to users matching @mailinator.com, or @contoso.com", message);
+            Assert.Contains("You may only send emails to email addresses addressed to users matching @mailinator.com, or @*contoso.com", message);
         }
 
         [Fact]
@@ -102,5 +102,6 @@ namespace SampleGovernedActivities.Tests
             MailAddressCollection collection = new MailAddressCollection();
             collection.Add("John Doe <john.doe@mailaintor.com>,merrick.bob@uipath.com");
         }
+
     }
 }

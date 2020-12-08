@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="MailTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="MailCountLimitTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -67,9 +68,9 @@
     <Analyzer Include="..\..\packages\xunit.analyzers.0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\SampleGovernedActivities.csproj">
+    <ProjectReference Include="..\..\src\EYMail.Activities.csproj">
       <Project>{c17a1a51-4012-498b-8480-3d3add02f1ce}</Project>
-      <Name>SampleGovernedActivities</Name>
+      <Name>EYMail.Activities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
